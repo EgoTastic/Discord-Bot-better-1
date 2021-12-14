@@ -70,12 +70,12 @@ const execute = async (message, args, models) => {
           if (!channelFound.parent || channelFound.parent.id !== currentCourse.categoryId) {
             statusMessage += "Channel: " + currentChannel.name + " placed in wrong category\n";
           }
-          if (locked) {
+          if (locked && !currentChannel.name.includes("announcement")) {
             if (courseRole.permissionsIn(channelFound).has("SEND_MESSAGES")) {
               statusMessage += "Channel: " + currentChannel.name + " Course members can speak in locked channel\n";
             }
           }
-          else if (!courseRole.permissionsIn(channelFound).has("SEND_MESSAGES")) {
+          else if (!courseRole.permissionsIn(channelFound).has("SEND_MESSAGES") && !currentChannel.name.includes("announcement")) {
             statusMessage += "Channel: " + currentChannel.name + " Course members can't talk in unlocked channel\n";
           }
         }
